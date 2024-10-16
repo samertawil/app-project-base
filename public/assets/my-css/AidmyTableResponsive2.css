@@ -1,0 +1,74 @@
+
+     main {
+         display: block;
+          box-sizing: border-box;  
+         width: auto;
+         padding: 1em 2vw;
+         margin: 1em 2vw;
+         color: #000;
+    
+        border: 0.07em solid rgba(0, 0, 0, 0.5);   
+        border-radius: 0.5em;
+      
+     }
+      table,
+      tr,
+      td {
+          display: block;
+          border-top:0px !important;
+ 
+      }
+ 
+      tr {
+          padding: 0.7em 2vw;
+ 
+      }
+ 
+      th,
+      tr:first-of-type {
+          display: none;
+ 
+      }
+ 
+      td::before {
+          display: inline;
+          font-weight: bold;
+      
+         }
+ 
+      td {
+          display: grid;
+          grid-template-columns: 8em auto;
+          grid-gap: 1em 0.5em;
+          text-align: start; 
+         
+      }
+ 
+      caption {
+          font-style: normal;
+          background-color: rgba(0, 0, 0, 0.35);
+           color: red !important;
+          font-weight: bold;
+         
+      }
+ 
+      td:nth-of-type(3) {
+          text-align: right;
+      }
+ 
+      td:nth-of-type(4),
+      td:nth-of-type(5) {
+          text-align: right;
+          width:15em;
+      }
+ 
+      td:nth-of-type(4)::before,
+      td:nth-of-type(5)::before {
+          text-align: right;
+      }
+ 
+      td:nth-of-type(2)::before {
+          font-style: normal;
+      }
+ 
+ 
