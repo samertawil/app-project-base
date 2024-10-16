@@ -1,4 +1,6 @@
 /* begin block iu */
+
+ 
 function blockUI(){
     $.blockUI({
         message: '<i class="icon-spinner4 spinner"></i>',

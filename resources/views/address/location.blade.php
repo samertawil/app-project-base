@@ -7,17 +7,16 @@
 
         <form wire:submit="store">
 
-            <div class="d-flex border h-0 align-items-center p-2 " id="a1">
+            <div class="d-flex border h-0 align-items-center p-2 " id="address-cont">
 
                 <x-input name="location_name" wire:model="location_name" label="yes"></x-input>
 
-                <x-select class="js-select2_address" divId="regionDivId" :options="$cities->pluck('region_name', 'region_id')" name="region_id"
+                <x-select class="js-select2 js-select2_address" divId="regionDivId" :options="$cities->pluck('region_name', 'region_id')" name="region_id"
                     id="region_id" wire:model="region_id" label="yes" :dataUrl="route('address.api.create')"></x-select>
 
 
-                {{-- :options="$cities->pluck('city_name', 'city_id')" --}}
-                <x-select class="js-select2" id="city_id" name="city_id" wire:model="city_id" label="yes"
-                    wire:ignore></x-select>
+                <x-select class="js-select2 js-select2_address" id="city_id" name="city_id" wire:model="city_id"
+                    label="yes" wire:ignore></x-select>
 
 
                 <x-select class="js-select2" id="neighbourhood_id" name="neighbourhood_id" wire:model="neighbourhood_id"
@@ -128,56 +127,14 @@
         </div>
 
         @push('js')
+
             <script src="{{ asset('assets/my-js/select2.min.js') }}"></script>
-            <script>
-                $('#region_id').on('change', function() {
 
-                    $('#city_id').find('option').remove().end().append('<option value=""></option>').val('');
-                    $('#neighbourhood_id').find('option').remove().end().append('<option value=""></option>').val('');
+            <script src="{{asset('assets/my-js/jquery.blockUI.js')}}"></script>
+            <script src="{{asset('assets/my-js/blockui.js')}}"></script>
 
-                })
-            </script>
-            <script>
-                $(document).ready(function() {
-                    let routeName = $('#regionDivId').data('url');
-
-                    $('.js-select2_address').on('change', function(event) {
-
-                        let field_name = $(this).attr('name');
-                        let idName = $(this).attr('id');
-
-                        $.ajax({
-                            type: 'get',
-                            url: routeName + '/' + event.target.value + '/' + field_name,
-
-                            success: function(res) {
-                                if (field_name === 'region_id') {
-                                    res.forEach(element => {
-                                        alert(field_name);
-
-                                        var card =
-                                            `<option value="${element.city_id}">${element.city_name}</option>`
-                                        $('#city_id').append(card);
-
-                                    });
-                                } else if (field_name === 'city_id') {
-                                    alert(field_name);
-                                    res.forEach(element => {
-
-
-                                        var card =
-                                            `<option value="${element.neighbourhood_id}">${element.neighbourhood_name}</option>`
-                                        $('#neighbourhood_id').append(card);
-
-                                    });
-                                }
-
-
-                            }
-                        })
-                    })
-                });
-            </script>
+             <script src="{{asset('assets/my-js/apiAddress.js')}}"></script> 
+            
         @endpush
 
     </div>

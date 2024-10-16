@@ -56,15 +56,19 @@ class LocationClass extends Component
 
     public $value;
  
-   
+   public function store() {
+
+    dd(1);
+   }
+
+
     public function render()
     {
-         
+                
 
          $cities  =   CacheModelServices::getCityVwData();
  
- 
-        $locations = AddressNameVw::groupby('location_id')
+         $locations = AddressNameVw::groupby('location_id')
         ->orderBy($this->sortBy,$this->sortdir)
             // ->NeighbourhoodNameSearch($this->search)
             // ->RegionListSearch($this->regionIdSearch)
