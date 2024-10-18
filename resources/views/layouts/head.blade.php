@@ -34,6 +34,6 @@
 
 <link  href="{{asset('assets/my-css/toastr.min.css')}}" rel="stylesheet" >
 
-
+<link rel="stylesheet" href="{{ asset('assets/my-css/select2.min.css') }}">  
 {{-- <link  href="{{asset('assets/my-css/bootstrap.rtl.css')}}" rel="stylesheet" > --}}
 

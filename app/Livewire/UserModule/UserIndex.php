@@ -17,6 +17,9 @@ class UserIndex extends Component
 {
     use SortTrait;
 
+    #[Url(history:true)]
+    public $sortBy='created_at';
+
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 

@@ -23,7 +23,7 @@ class NeighbourhoodObserver
    
     public function deleted(Neighbourhood $neighbourhood): void
     {
-        //
+        FlashMsgTraits::created($msgType = 'success',$msg = 'destroy');
     }
 
    

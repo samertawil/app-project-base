@@ -15,9 +15,9 @@ $('#city_id').on('change', function() {
 $(document).ready(function() {
     let routeName = $('#regionDivId').data('url');
 
-    $('.js-select2_address').on('change', function(event) {
+    $('.js-select2-address').on('change', function(event) {
 
-        let field_name = $(this).attr('name');
+        let fieldName = $(this).attr('name');
         
         let idName = $(this).attr('id');
 
@@ -25,20 +25,20 @@ $(document).ready(function() {
       
         $.ajax({
             type: 'get',
-            url: routeName + '/' + event.target.value + '/' + field_name,
+            url: routeName + '/' + event.target.value + '/' + fieldName,
 
             success: function(res) {
 
-                if (field_name === 'region_id') {
+                if (fieldName === 'region_id') {
                     res.forEach(element => {
-                        console.log(element.city_name);
+                    
                         var card =
                             `<option value="${element.city_id}">${element.city_name}</option>`
                         $('#city_id').append(card);
 
                     });
 
-                } else if (field_name === 'city_id') {
+                } else if (fieldName === 'city_id') {
 
                     res.forEach(element => {
 

@@ -5,6 +5,7 @@ namespace App\Livewire\Setting;
 use App\Models\Setting;
 use Livewire\Component;
 use App\Traits\SortTrait;
+use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Title;
@@ -15,6 +16,9 @@ class SettingIndex extends Component
 {
     use SortTrait;
 
+    #[Url(history:true)]
+    public $sortBy='created_at';
+    
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
   

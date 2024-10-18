@@ -3,11 +3,16 @@
 namespace App\Livewire\AddressModule;
 
 use Livewire\Component;
+use App\Models\Location;
 use App\Traits\SortTrait;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use App\Models\AddressNameVw;
+use App\Traits\FlashMsgTraits;
+use Illuminate\Support\Facades\DB;
 use App\Services\CacheModelServices;
+use App\Http\Requests\LocationRequest;
+ 
 
 class LocationClass extends Component
 {
@@ -58,24 +63,48 @@ class LocationClass extends Component
  
    public function store() {
 
-    dd(1);
-   }
+   
 
+    $this->validate(LocationRequest::rules($this->neighbourhood_id));
+
+    Location::create([
+        'location_name'=>$this->location_name,
+        'neighbourhood_id'=>$this->neighbourhood_id,
+    ]);
+
+    $this->reset();
+
+    $this->dispatch('reset-items');
+    
+    
+   }
+   public function destroy($id)
+   {
+       DB::beginTransaction();
+
+       try {
+        Location::destroy($id);
+           DB::commit();
+       } catch (\Exception $e) {
+           FlashMsgTraits::created($msgType = 'error', $msg = 'لا يمكن حذف قيمة مرتبطة ببيانات اخرى');
+           DB::rollBack();
+       }
+   }
 
     public function render()
     {
                 
-
+        $regions =  CacheModelServices::getRegionVwData();
          $cities  =   CacheModelServices::getCityVwData();
  
          $locations = AddressNameVw::groupby('location_id')
         ->orderBy($this->sortBy,$this->sortdir)
-            // ->NeighbourhoodNameSearch($this->search)
-            // ->RegionListSearch($this->regionIdSearch)
-            // ->CityListSearch($this->cityIdSearch)
-            ->paginate($this->perPage);
+            ->LocationNameSearch($this->search)
+              ->RegionListSearch($this->regionIdSearch)
+              ->CityListSearch($this->cityIdSearch)
+              ->paginate($this->perPage);
 
-
-        return view('address.location',compact('cities','locations', ));
+          
+        return view('address.location',compact('cities','locations','regions' ));
     }
 }

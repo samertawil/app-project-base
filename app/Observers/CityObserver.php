@@ -8,11 +8,14 @@ use App\Traits\ClearCacheTraits;
 
 class CityObserver
 {
+
+    use ClearCacheTraits;
    
     public function created(City $city): void
     {
          FlashMsgTraits::created();
          ClearCacheTraits::clearCache('CityVwData');
+       
     }
 
   

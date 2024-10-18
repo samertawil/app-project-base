@@ -13,7 +13,7 @@
                 text-align: right !important;
             }
         </style>
-         <link rel="stylesheet" href="{{ asset('assets/my-css/select2.min.css') }}">
+         {{-- <link rel="stylesheet" href="{{ asset('assets/my-css/select2.min.css') }}"> --}}
     @endpush
 
 
@@ -62,7 +62,7 @@
 
 
                                     <x-select name="p_id_sub"  label="yes" labelname="ثابت فرعي"  wire:model='p_id_sub'
-                                        :options="$parents->pluck('status_name', 'id')" ></x-select>
+                                        :options="$parents->pluck('status_name', 'id')"   class="js-select2" jsSelect2 wireIgone></x-select>
                                         
                                          
 
@@ -101,15 +101,15 @@
                         <x-select id="id1" :options="$parents->pluck('status_name', 'id')" 
                             ChoseTitle="اختار التابع الفرعي"
                              divWidth="12"
-                             class="js-example-basic-single"
-                            wire:model.live='PidSearch'></x-select>
+                             class="js-select2" jsSelect2 wireIgone
+                            wire:model.live='PidSearch' name="PidSearch"></x-select>
                     </div>
 
                     <div class="col-sm-12 col-md-3">
-                        <x-select :options="$systems_data->pluck('system_name', 'id')" 
+                        <x-select  name="SystemName" :options="$systems_data->pluck('system_name', 'id')" 
                             ChoseTitle="اختار النظام التابع "
                              divWidth="12"
-                             class="js-example-basic-single"
+                           
                             wire:model.live='SystemName'></x-select>
                     </div>
 
@@ -201,8 +201,8 @@
 
                 </div>
 @push('js')
-
- {{-- <script src="{{asset('assets/my-js/select2.min.js')}}"></script> 
+{{-- 
+ <script src="{{asset('assets/my-js/select2.min.js')}}"></script> 
 <script>
     $('#js-example-basic-single').select2({
         placeholder: 'اختار',

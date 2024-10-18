@@ -21,6 +21,9 @@ class  StatusClass extends Component
 {
     use SortTrait;
 
+      #[Url(history:true)]
+      public $sortBy='created_at';
+
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
@@ -56,6 +59,7 @@ class  StatusClass extends Component
     public function store()
     {
 
+       
         $this->validate(StatusRequest::rules($this->p_id_sub));
 
         status::create($this->all());

@@ -2,19 +2,17 @@
 
 namespace App\Livewire\AddressModule;
 
-use Exception;
+
 use App\Models\City;
 use Livewire\Component;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use App\Models\AddressNameVw;
-use Livewire\Attributes\Rule;
 use App\Traits\FlashMsgTraits;
-use Psy\Command\HistoryCommand;
 use App\Http\Requests\CityRequest;
 use Illuminate\Support\Facades\DB;
 use App\Services\CacheModelServices;
-use Illuminate\Support\Facades\Cache;
+
 
 class CityClass extends Component
 {
@@ -46,12 +44,14 @@ class CityClass extends Component
 
     public function store()
     {
-
+        
         $this->validate(CityRequest::rules($this->region_id));
 
         City::create($this->all());
 
         $this->reset('city_name');
+
+        $this->dispatch('refresh-city');
     }
 
     public function edit($id)
@@ -60,7 +60,7 @@ class CityClass extends Component
         $data = City::findOrfail($id);
         $this->editCityName=$data->city_name;   
         $this->regionIdUpdate=$data->region_id;
-
+      
     }
 
 
@@ -73,6 +73,8 @@ class CityClass extends Component
         ]);
       
         $this->cancelEdit();
+
+        $this->dispatch('refresh-city');
     }
 
     public function destroy($id)
@@ -82,6 +84,8 @@ class CityClass extends Component
         try {
             City::destroy($id);
             DB::commit();
+            $this->dispatch('refresh-city');
+            
         } catch (\Exception $e) {
             FlashMsgTraits::created($msgType = 'error', $msg = 'لا يمكن حذف قيمة مرتبطة ببيانات اخرى');
             DB::rollBack();
@@ -102,7 +106,7 @@ class CityClass extends Component
 
         $regions =  CacheModelServices::getRegionVwData();
 
-
+ 
         return view('address.city', compact('regions', 'cities'));
     }
 }

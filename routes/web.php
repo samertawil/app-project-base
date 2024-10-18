@@ -54,6 +54,12 @@ Route::get('/contacts', function() {
 });
  
 
+Route::get('/form-elements', function() {
+    return view('form-elements');
+});
+ 
+
+
 include __DIR__ .'/auth.php';
 
 include __DIR__ . '/status.php';

@@ -16,11 +16,14 @@
     'divlclass' => '',
     'ChoseTitle' => 'اختار',
     'divId'=>null,
+    'jsSelect2'=>null,
+    'wireIgone'=>null,
  
 ])
 
 
 <div @class(["form-group mb-3 col-md-4 col-lg-$divWidth", $divlclass]) data-url={{ $dataUrl }} id={{$divId}} >
+
 
 
 
@@ -31,8 +34,10 @@
             @endif
         </label>
     @endif
-    <div wire:ignore id="city_id1">
-        <select  id="{{ $id }}" name="{{ $name }}" dir={{ $dir }}
+    <div @if ($wireIgone)
+    wire:ignore 
+    @endif >
+        <select  id="{{ $id }}" name="{{ $name }}" dir={{ $dir }} 
             title="{{ $title }}"
             {{ $attributes->class(['form-control ', 'is-invalid' => $errors->has($name)]) }}>
             <option value="">{{ $ChoseTitle }}</option>
@@ -42,8 +47,28 @@
                     {{ $value }} </option>
             @endforeach
         </select>
+        @include('layouts._show-error', ['field_name' => $name])
     </div>
-    @include('layouts._show-error', ['field_name' => $name])
-
-
+  
 </div>
+
+
+@if ($jsSelect2)
+ 
+@push('js')
+<script>
+ 
+    $('.js-select2').select2({
+     placeholder: "اختر" ,
+        allowClear: true,
+
+    });
+
+    $('.js-select2').on('change', function(event) {
+       let modelName = $(this).attr('name');
+        @this.set(modelName, event.target.value);
+    })
+</script>
+@endpush
+
+@endif

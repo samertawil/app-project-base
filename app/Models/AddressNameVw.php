@@ -41,4 +41,10 @@ class AddressNameVw extends Model
         }
     } 
 
+    public function scopeLocationNameSearch($query,$value) {
+        if($value) {
+            return $query->where('location_name','like',"%{$value}%");
+        }
+    }
+
 }

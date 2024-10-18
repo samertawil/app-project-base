@@ -59,7 +59,20 @@ label {
 } */
 
 
+.smallTd {
+    padding: 0px 15px !important;
+    line-height: 1.462;
+  }
 
+  .select2-selection--single {
+    height: 40px !important;
+    padding: 0.375rem 2px !important;  
+    border: 1px solid #e1e5ef !important;  
+  }
+
+  .select2-selection--single .select2-selection__arrow{
+    top: 8px !important;
+  }
 
 
 /* Small devices (landscape phones, 576px and up)*/

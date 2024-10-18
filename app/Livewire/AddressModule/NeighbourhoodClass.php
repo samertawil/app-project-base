@@ -27,6 +27,8 @@ class NeighbourhoodClass extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $neighbourhood_name;
+    
+    public $neighbourhood_id;
 
     public $city_id;
 
@@ -51,6 +53,8 @@ class NeighbourhoodClass extends Component
     public $regionIdUpdate;
 
     public $cityIdUpdate;
+
+    protected $listeners=['refresh-city'=>'$refresh',];
 
     public function store()
     {
@@ -114,7 +118,7 @@ class NeighbourhoodClass extends Component
         
  
         $regions =Region::get(); 
-        //  CacheModelServices::getRegionVwData();
+      
         $cities =  CacheModelServices::getCityVwData();
 
         $neighbourhoods = AddressNameVw::groupby('neighbourhood_id')
