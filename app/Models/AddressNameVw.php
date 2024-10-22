@@ -34,6 +34,12 @@ class AddressNameVw extends Model
             return $query->where('city_id',$value);
         }
     } 
+
+    public function scopeNeighbourhoodListSearch($query, $value) {
+        if($value) {
+            return $query->where('neighbourhood_id',$value);
+        }
+    } 
     
     public function scopeNeighbourhoodNameSearch($query, $value) {
         if($value) {

@@ -38,11 +38,25 @@ protected $paginationTheme ='bootstrap';
         });
     }
 
+    public static function getNeighbourhoodVwData()
+    {
+             
+        return   Cache::rememberForever('NeighbourhoodVwData', function () {
+            return   AddressNameVw::select('region_id', 'region_name', 'city_name', 'city_id','neighbourhood_id','neighbourhood_name')
+                ->groupby('neighbourhood_id')
+                ->orderBy('neighbourhood_id', 'DESC') 
+                ->get();
+               
+        });
+    }
+
+ 
+
 
     public static function getCityVwDataApi($groupBy='', $conditionCol='', $value='')
     {
              
-        return   Cache::rememberForever('CityVwDataApi', function () use($groupBy, $conditionCol, $value) {
+            return   Cache::rememberForever('CityVwDataApi', function () use($groupBy, $conditionCol, $value) {
             return   AddressNameVw::select('region_id', 'region_name', 'city_name', 'city_id')->groupby($groupBy)
            ->where($conditionCol,$value)->get()->toArray();
            

@@ -7,8 +7,8 @@
         <a class="desktop-logo logo-dark active" href="{{ url('/' . ($page = 'index')) }}"><img
                 src="{{ URL::asset('assets/img/brand/logo-white.png') }}" class="main-logo dark-theme"
                 alt="logo"></a>
-        <a class="logo-icon mobile-logo icon-light active" href="{{ url('/' . ($page = 'index')) }}"><img
-                src="{{ URL::asset('assets/img/brand/favicon.png') }}" class="logo-icon" alt="logo"></a>
+        {{-- <a class="logo-icon mobile-logo icon-light active" href="{{ url('/' . ($page = 'index')) }}"><img
+                src="{{ URL::asset('assets/img/brand/favicon.png') }}" class="logo-icon" alt="logo"></a> --}}
         <a class="logo-icon mobile-logo icon-dark active" href="{{ url('/' . ($page = 'index')) }}"><img
                 src="{{ URL::asset('assets/img/brand/favicon-white.png') }}" class="logo-icon dark-theme"
                 alt="logo"></a>
@@ -142,7 +142,7 @@
                                 class="sub-side-menu__label"> المعالم والعناوين</span><i
                                 class="sub-angle fe fe-chevron-down"></i></a>
                         <ul class="sub-slide-menu">
-                            <li><a class="sub-slide-item" href="{{ route('address.parts') }}">انشاء المعالم </a></li>
+                            <li><a class="sub-slide-item" href="{{ route('addresses.index') }}">انشاء المعالم </a></li>
                           
                         </ul>
                     </li>

@@ -1,15 +1,13 @@
- 
- 
-
- <div id="collapse-city" class="collapse show" aria-labelledby="heading-city">
+<div >
     <p class="card-header"> </p>
 
-     <div>
+
+    <div>
 
 
         <form wire:submit="store">
 
-            <div class="d-flex border h-0 align-items-center p-2 ">
+            <div class="d-flex border align-items-center p-2 ">
 
                 <x-input name="city_name" wire:model="city_name" label="yes"></x-input>
 
@@ -86,6 +84,4 @@
         </div>
 
     </div>
-</div>  
-
- 
+</div>

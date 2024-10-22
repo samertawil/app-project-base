@@ -22,7 +22,7 @@
     </div>
 
     <div class="col-sm-12 col-md-3">
-        <x-input type="search" name="search" placeholder="بحث" divWidth="12" wire:model.live='search'></x-input>
+        <x-input  type="search" name="search" placeholder="بحث" divWidth="12" wire:model.live='search'></x-input>
     </div>
 
     {{$slot??''}}

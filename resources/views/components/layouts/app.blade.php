@@ -8,6 +8,8 @@
     <meta name="Description" content="samer website with livewire">
     <title>{{ $title ?? 'Page Title' }}</title>
 
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+
     @include('layouts.head')
 
     @stack('css')
@@ -31,17 +33,22 @@
 
             <div class="card">
                 <div
-                    class="card-header tx-medium bd-0 tx-white bg-gray-800 ">
+                    class=" py-2 card-header d-flex justify-content-between align-items-center   tx-medium bd-0 tx-white bg-gray-800 ">
 
-                    {{ $pageTitle ?? '' }}
+                    <div class=" w-50"> {{ $pageTitle ?? '' }}</div>
 
-                    <p class="tx-12 tx-gray-500 mb-2">{{ $pagedesc ?? '' }} <a
-                            href="{{ $pageUrl ?? '#' }}">{{ $pageHelp ?? '' }}</a>
-                       
+                    <div class="w-50" style="text-align: left">
+                        <button class="btn reload"><i class="ti-reload text-warning"></i></button>
+                    </div>
+                  
                 </div>
-        
-                <div class="card-body ">
-               
+
+                {{-- <p class="tx-12 tx-gray-500 m-3 ">{{ $pagedesc ?? '' }} <a
+                    href="{{ $pageUrl ?? '#' }}">{{ $pageHelp ?? '' }}</a> --}}
+
+
+                <div class="card-body pt-0">
+
 
                     {{ $slot ?? '' }}
 
@@ -58,10 +65,10 @@
     @include('layouts.footer')
     @include('layouts.footer-scripts')
 
- 
-    
+
+
     @stack('js')
-   
+
 </body>
 
 </html>

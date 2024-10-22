@@ -3,7 +3,7 @@
 <!-- Favicon -->
 
 
-<link rel="stylesheet" href="{{asset('assets/img/brand/favicon.png')}}" type="image/x-icon"/>
+{{-- <link rel="stylesheet" href="{{asset('assets/img/brand/favicon.png')}}" type="image/x-icon"/> --}}
 
 
 <!-- Icons css -->

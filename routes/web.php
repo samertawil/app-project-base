@@ -58,7 +58,7 @@ Route::get('/form-elements', function() {
     return view('form-elements');
 });
  
-
+Route::view('/test','test');
 
 include __DIR__ .'/auth.php';
 

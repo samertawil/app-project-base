@@ -26,7 +26,7 @@ class MyLogin extends Component
 
     public function authenticate()
     {
-
+   
         $this->validate($this->rules,$this->messages);
 
          $user= User::user( $this->user_name);
@@ -58,7 +58,7 @@ class MyLogin extends Component
 
     public function render()
     {
-
+      
         return view('auth.login')->layout('components.layouts.app-org');
 
 
