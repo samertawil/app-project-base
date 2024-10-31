@@ -10,19 +10,30 @@ use App\Services\AddressNameServices;
 class AddressParts extends Component
 {
 
+  
+
     public function  api_create_short_address($value = '', $model = '')
     {
 
         if ($model === 'region_id') {
+
             $groupBy = 'city_id';
+            
         } elseif ($model === 'city_id') {
+
             $groupBy = 'neighbourhood_id';
+
+        } elseif ($model === 'neighbourhood_id') {
+
+             $groupBy = 'location_id';
         }
 
         $address =  AddressNameServices::getCityVwDataApi($groupBy, $model, $value);
-
+ 
         return response($address, 200);
+
     }
+
 
     #[Title('اجزاء العنوان')]
     public function render()

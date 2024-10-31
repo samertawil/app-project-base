@@ -10,6 +10,8 @@ Route::prefix('address/')->name('address.')->middleware(['web', 'auth'])->group(
 
     Route::get('parts/api/{value?}/{model?}',[AddressParts::class,'api_create_short_address'])->name('api.create');
 
+    Route::get('parts2/api/{value?}/{model?}',[AddressParts::class,'api_create_short_address2'])->name('api.create2');
+
 });
 
 

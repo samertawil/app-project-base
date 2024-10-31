@@ -9,7 +9,7 @@ trait FlashMsgTraits
     public static function created($msgType = 'success', $msg = 'create' )
     {
         
-      
+    
         if ($msg == 'create') {
             return toastr()->progressBar(false)->timeOut(1000) 
             ->$msgType('تم حفظ البيانات بنجاح');

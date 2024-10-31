@@ -36,6 +36,9 @@
 
 
    <script src="{{ asset('assets/my-js/select2.min.js') }}"></script>
-
+   <script src="{{asset('assets/my-js/general.js')}}"></script>
+   <script>  reloadPage();  </script>
+    
+    
 
 {{-- <script src="{{asset('assets/my-js/bootstrap.js')}}"></script> --}}

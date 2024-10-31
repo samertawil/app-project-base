@@ -21,6 +21,8 @@ use App\Observers\SettingObserver;
 use App\Observers\StatusObservers;
 use App\Observers\LocationObserver;
 use App\Observers\RoleUserObserver;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\NeighbourhoodObserver;
@@ -48,14 +50,22 @@ class AppServiceProvider extends ServiceProvider
         Neighbourhood::observe(NeighbourhoodObserver::class);
         Location::observe(LocationObserver::class);
 
+    
+
         foreach (Ability::get() as $data) {
 
             Gate::define($data->ability_name, function ($user) use ($data) {
-
+   
+       
+                if ($user->user_activation != 1) 
+                {
+                    return false;
+                }
+                
                 foreach ($user->rolesRelation as $role) {
 
                     if (in_array(($data->ability_name), $role->abilities)) {
-
+                       
                         return true;
                     }
                 }

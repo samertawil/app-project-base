@@ -18,11 +18,12 @@
     'divId'=>null,
     'jsSelect2'=>null,
     'wireIgone'=>null,
+    'marginBottom'=>'3',
  
 ])
 
 
-<div @class(["form-group mb-3 col-md-4 col-lg-$divWidth", $divlclass]) data-url={{ $dataUrl }} id={{$divId}} >
+<div @class(["form-group mb-$marginBottom col-md-4 col-lg-$divWidth", $divlclass]) data-url={{ $dataUrl }} id={{$divId}} >
 
 
 
@@ -37,7 +38,7 @@
     <div @if ($wireIgone)
     wire:ignore 
     @endif >
-        <select  id="{{ $id }}" name="{{ $name }}" dir={{ $dir }} 
+        <select   id="{{ $id }}" name="{{ $name }}" dir={{ $dir }} 
             title="{{ $title }}"
             {{ $attributes->class(['form-control ', 'is-invalid' => $errors->has($name)]) }}>
             <option value="">{{ $ChoseTitle }}</option>

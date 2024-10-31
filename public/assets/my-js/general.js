@@ -33,7 +33,7 @@ $("#marital_status").on("change", function () {
 
 //begin of check idc for emp -------------
 
-function chk_idc() {
+function chkIdc() {
     let idc = $("#idc").val();
 
     let route = $("#url").data("url");
@@ -45,3 +45,13 @@ function chk_idc() {
     }
 }
 //end of check idc for emp -------------
+
+//begin of re load page 
+function reloadPage() {
+    $('.reload').on('click', function() {
+        location.reload();
+    }) 
+}
+
+
+ 

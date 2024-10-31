@@ -8,9 +8,7 @@ use Livewire\Attributes\Url;
  
 trait SortTrait  {
 
-   
-   
-    
+       
     // #[Url(history:true)]
     // public $sortBy='created_at';
  

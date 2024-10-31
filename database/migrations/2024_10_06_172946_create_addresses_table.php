@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('city_id')->constrained('cities');
             $table->foreignId('neighbourhood_id')->nullable()->constrained('neighbourhoods');
             $table->foreignId('location_id')->nullable()->constrained('locations'); //
-            $table->string('address_specific'); // باقي العنوان بالتفصيل
+            $table->string('address_specific')->nullable(); // باقي العنوان بالتفصيل
             $table->foreignId('address_type')->nullable()->constrained('statuses'); // نوع العنوان , عنوان سكن او عنوان للعمل      
             $table->string('gis')->nullable();
             $table->enum('active',[0,1])->default(1);

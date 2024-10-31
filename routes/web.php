@@ -58,6 +58,12 @@ Route::get('/form-elements', function() {
     return view('form-elements');
 });
  
+
+Route::get('/profile', function() {
+    return view('profile');
+});
+ 
+
 Route::view('/test','test');
 
 include __DIR__ .'/auth.php';
@@ -72,6 +78,7 @@ include __DIR__ .'/setting.php';
 
 include __DIR__ .'/address.php';
 
+include __DIR__ .'/contact.php';
 
  
 

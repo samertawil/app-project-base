@@ -52,7 +52,12 @@ th {
      margin: auto auto;
 }
  
-
+.disabledTagA {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+    color: black;
+}
 /*
 label {
     font-weight: 500 !important;

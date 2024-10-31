@@ -15,7 +15,7 @@ class AddressNameServices
     {
        
             return   AddressNameVw::
-            select('region_id', 'region_name', 'city_name', 'city_id','neighbourhood_id','neighbourhood_name')
+            select('region_id', 'region_name', 'city_name', 'city_id','neighbourhood_id','neighbourhood_name','location_id','location_name')
             ->groupby($groupBy)
             ->where($conditionCol,$value)->get();
                

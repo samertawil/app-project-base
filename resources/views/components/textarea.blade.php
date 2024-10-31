@@ -15,21 +15,23 @@
     'id'=>'',
     'req'=>'',
     'divWidth'=>3,
+    'span'=>null,
+    'description_field1'=>null,
+    'marginBottom'=>'3',
  ])
 
  
 
- 
-
-
-
  <div
-  @class(["form-group mb-3 col-md-4 col-lg-$divWidth",$divclass])  >
+  @class(["form-group mb-$marginBottom col-md-4 col-lg-$divWidth",$divclass])  >
 
   @if ($label)
-  <label for="{{ $id }}" @class(["col-form-label   $labelclass "])>{{$labelname?$labelname: __("mytrans.$name") }}
+  <label for="{{ $id }}" @class(["col-form-label  $labelclass   "])>{{$labelname?$labelname: __("mytrans.$name") }}
       @if($req)
       <span class="text-danger">*</span>
+      @if ($span)
+      <small class="text-muted">{{$description_field1}}</small>
+      @endif
       @endif
   </label>
   @endif

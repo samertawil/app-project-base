@@ -2,16 +2,18 @@
 
 
     <x-slot:crumb>
+@can('ability.index')
+    
 
         <x-breadcrumb button data-target="#abilityCreateModel1" data-toggle="modal" name="انشاء الصلاحية">
 
         </x-breadcrumb>
-
+        @endcan
     </x-slot:crumb>
 
 
 
-    <x-modal idName="abilityCreateModel1" title="انشاء صلاحية">
+    <x-modal idName="abilityCreateModel1" width="xl" title="انشاء صلاحية">
         <livewire:ability.ability-create></livewire:ability.ability-create>
     </x-modal>
 
@@ -24,32 +26,16 @@
     {{--   
                 <div> <label for="hs-search-box-with-loading-1" class="ti-form-label">Search</label> <div class="relative"> <input type="text" id="hs-search-box-with-loading-1" name="hs-search-box-with-loading-1" class="ti-form-input rounded-sm ltr:pl-11 rtl:pr-11 focus:z-10" placeholder="Input search"> <div class="absolute inset-y-0 ltr:left-0 rtl:right-0 flex items-center pointer-events-none ltr:pl-4 rtl:pr-4"> <div class="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-primary rounded-full" role="status" aria-label="loading"> <span class="sr-only">Loading...</span> </div> </div> </div> </div> --}}
 
-    <div class="row justify-content-between align-items-center">
-        <div class="col-sm-12 col-md-2">
-            <div> <span class="ml-1">السطور</span> <label><select wire:model.live='perPage'
-                        class="custom-select custom-select-sm form-control form-control-sm">
 
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select></label></div>
-        </div>
+    <x-search-index-section>
 
+        <x-select divWidth="3" ChoseTitle="اسم النظام" :options="$moduleNames->pluck('status_name', 'id')" wire:model.live="searchModuleId"
+            ChoseTitle='جميع الانطمة'></x-select>
+    
+    </x-search-index-section>
 
-        <div class="col-sm-12 col-md-2">
-            <x-select divWidth="12" ChoseTitle="اسم النظام" :options="$moduleNames->pluck('status_name', 'id')" wire:model.live="searchModuleId"
-                ChoseTitle='جميع الانطمة'></x-select>
-        </div>
-
-        <div class="col-sm-12 col-md-3">
-            <x-input type="search" name="search" placeholder="بحث" divWidth="12" wire:model.live='search'></x-input>
-        </div>
-
-    </div>
-
-
-
+@can('ability.index')
+    
 
     <div class="table-responsive">
         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -89,17 +75,11 @@
 
 
                     @foreach ($abilities as $key => $ability)
-                        <td wire:model="ability_id">{{ $ability->id }}</td>
+                        <td> {{ $key + 1 }}</td>
 
 
-                        @if ($editAbilityId === $ability->id)
-                            <td>
+                        <td>{{ $ability->ability_name }}</td>
 
-                                <x-input wire:model='editAbilityName' name='editAbilityName' divWidth="12"></x-input>
-                            </td>
-                        @else
-                            <td>{{ $ability->ability_name }}</td>
-                        @endif
 
                         @if ($editAbilityId === $ability->id)
                             <td>
@@ -153,9 +133,12 @@
                         @if (!($editAbilityId === $ability->id))
                             <td class="d-flex justify-content-center">
                                 <x-actions preview data-target="#abilityPreview1" data-toggle="modal"></x-actions>
-                                <x-actions edit wire:click.prevent='edit({{ $ability->id }})'></x-actions>
+                                @can('ability.update')
+                                <x-actions edit wire:click.prevent='edit({{ $ability->id }})'></x-actions>   
+                                @endcan
+                                @can('ability.delete')
                                 <x-actions del wire:click.prevent='destroy({{ $ability->id }})'></x-actions>
-
+                                @endcan
                                 <x-modal idName="abilityPreview1">
 
                                     الرابط : {{ $ability->url }}</br>
@@ -165,6 +148,7 @@
                             </td>
                         @else
                             <td class="d-flex justify-content-center">
+
                                 <x-actions preview data-target="#abilityPreview1" data-toggle="modal"></x-actions>
 
                                 <x-modal idName="abilityPreview1">
@@ -188,7 +172,7 @@
 
     </div>
 
-
+    @endcan
 
 
     @push('js')

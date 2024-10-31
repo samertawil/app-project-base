@@ -8,6 +8,7 @@ use Livewire\Component;
 use Livewire\Attributes\Title;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class RoleEdit extends Component
 {
@@ -21,6 +22,10 @@ class RoleEdit extends Component
 
     public function update()
     {
+
+        if(Gate::denies('role.update')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+         }
 
         $role = Role::findOrfail($this->roles['id']);
 
@@ -73,7 +78,7 @@ class RoleEdit extends Component
 
 
 
-        return view('role.role-edit', compact('abilities_module', 'abilities'))->layoutData(['pageTitle'=>$pageTitle,'title'=>$pageTitle]);;
+        return view('livewire.role.role-edit', compact('abilities_module', 'abilities'))->layoutData(['pageTitle'=>$pageTitle,'title'=>$pageTitle]);;
        
      
     }

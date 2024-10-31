@@ -2,14 +2,23 @@ $('#region_id').on('change', function() {
 
     $('#city_id').find('option').remove().end().append('<option value=""></option>').val('');
     $('#neighbourhood_id').find('option').remove().end().append('<option value=""></option>').val('');
+    $('#location_id').find('option').remove().end().append('<option value=""></option>').val('');
 
 })
 
 $('#city_id').on('change', function() {
 
     $('#neighbourhood_id').find('option').remove().end().append('<option value=""></option>').val('');
+    $('#location_id').find('option').remove().end().append('<option value=""></option>').val('');
 
 })
+
+$('#neighbourhood_id').on('change', function() {
+
+       $('#location_id').find('option').remove().end().append('<option value=""></option>').val('');
+
+})
+
 
 
 $(document).ready(function() {
@@ -26,10 +35,11 @@ $(document).ready(function() {
         $.ajax({
             type: 'get',
             url: routeName + '/' + event.target.value + '/' + fieldName,
-
+              
             success: function(res) {
 
                 if (fieldName === 'region_id') {
+                
                     res.forEach(element => {
                     
                         var card =
@@ -39,12 +49,23 @@ $(document).ready(function() {
                     });
 
                 } else if (fieldName === 'city_id') {
-
+                
                     res.forEach(element => {
-
+                    
                         var card =
                             `<option value="${element.neighbourhood_id}">${element.neighbourhood_name}</option>`
                         $('#neighbourhood_id').append(card);
+
+                    });
+
+                } else if (fieldName === 'neighbourhood_id') {
+
+                
+                    res.forEach(element => {
+               
+                        var card =
+                            `<option value="${element.location_id}">${element.location_name}</option>`
+                        $('#location_id').append(card);
 
                     });
                 }

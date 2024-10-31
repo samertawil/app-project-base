@@ -9,8 +9,10 @@ use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use App\Models\AddressNameVw;
 use App\Traits\FlashMsgTraits;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Services\CacheModelServices;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\LocationRequest;
 
 
@@ -69,9 +71,22 @@ class LocationResource extends Component
     public function store()
     {
 
+        if(Gate::denies('location.create')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+        }
 
 
-        $this->validate(LocationRequest::rules($this->neighbourhood_id));
+        $this->validate([
+            'location_name' => [
+                'required',
+                Rule::unique('locations')->where(function ($query)  {
+                    return $query->where('neighbourhood_id', $this->neighbourhood_id);
+                }),
+            ],
+         
+            'neighbourhood_id' => ['required'],
+           
+        ]);
 
         Location::create([
             'location_name' => $this->location_name,
@@ -85,6 +100,10 @@ class LocationResource extends Component
 
     public function edit($id)
     {
+        
+        if(Gate::denies('location.update')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+        }
 
         $this->editLocationId = $id;
         $data = AddressNameVw::where('location_id', $id)->first();
@@ -97,10 +116,25 @@ class LocationResource extends Component
     public function update() {
 
      
+        if(Gate::denies('location.update')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+        }
+
         $data= Location::findOrfail($this->editLocationId);
 
-        $this->validate(LocationRequest::rules($this->editNeighbourhoodId));
+        $this->validate([
+            'editLocationName' => [
+                'required',
+                Rule::unique('locations','location_name')->where(function ($query)  {
+                    return $query->where('neighbourhood_id', $this->editNeighbourhoodId);
+                }),
+            ],
+           
+            'editNeighbourhoodId' => ['required'],
+           
+        ]);
 
+  
                 $data->update([
             'location_name' => $this->editLocationName,
             'neighbourhood_id' => $this->editNeighbourhoodId,
@@ -119,6 +153,11 @@ class LocationResource extends Component
 
     public function destroy($id)
     {
+        if(Gate::denies('location.delete')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+        }
+
+
         DB::beginTransaction();
 
         try {

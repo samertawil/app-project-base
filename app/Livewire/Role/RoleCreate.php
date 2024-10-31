@@ -7,6 +7,7 @@ use App\Models\Ability;
 use Livewire\Component;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class RoleCreate extends Component
 {
@@ -28,6 +29,10 @@ class RoleCreate extends Component
     public function store()
     {   
       
+        if(Gate::denies('role.create')) {
+           abort(403,'ليس لديك الصلاحية اللازمة');
+        }
+
         foreach($this->abilitiesId as $ability_name)
         {
      
@@ -37,7 +42,8 @@ class RoleCreate extends Component
             $array2[]=$ability->ability_name??null;
            
         }
-        // dd( $array, $this->abilitiesId);
+
+        //  dd(  $array2,$array, $this->abilitiesId);
 
        
         $this->validate(RoleRequest::rules());
@@ -78,7 +84,7 @@ class RoleCreate extends Component
         $abilities = Ability::select('id', 'module_id', 'ability_description', 'ability_name', 'activation')->with('modulename')->withoutGlobalScope('not-active')->get();
 
 
-        return view('role.role-create',compact('abilities_module','abilities'))->layoutData(['pageTitle'=>$pageTitle,'title'=>$pageTitle]);
+        return view('livewire.role.role-create',compact('abilities_module','abilities'))->layoutData(['pageTitle'=>$pageTitle,'title'=>$pageTitle]);
      
       
 

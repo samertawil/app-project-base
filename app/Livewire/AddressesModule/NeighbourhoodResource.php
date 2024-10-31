@@ -5,15 +5,17 @@ namespace App\Livewire\AddressesModule;
 use App\Models\City;
 use App\Models\Region;
 use Livewire\Component;
+use App\Traits\SortTrait;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use App\Models\AddressNameVw;
 use App\Models\Neighbourhood;
 use App\Traits\FlashMsgTraits;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Services\CacheModelServices;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\neighbourhoodRequest;
-use App\Traits\SortTrait;
 
 class NeighbourhoodResource extends Component
 {
@@ -62,8 +64,21 @@ class NeighbourhoodResource extends Component
 
     public function store()
     {
+
+        if(Gate::denies('neighbourhood.create')) {
+          abort(403,'ليس لديك الصلاحية اللازمة');
+        }
         
-        $this->validate(neighbourhoodRequest::rules($this->city_id));
+        $this->validate([
+            'neighbourhood_name' => [
+                'required',
+                Rule::unique('neighbourhoods')->where(function ($query)  {
+                    return $query->where('city_id', $this->city_id);
+                }),
+            ],
+            'city_id' => ['required'],
+          
+        ]);
 
         Neighbourhood::create([
             'neighbourhood_name' => $this->neighbourhood_name,
@@ -75,6 +90,10 @@ class NeighbourhoodResource extends Component
 
     public function edit($id)
     {
+        if(Gate::denies('neighbourhood.update')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+          }
+
         $this->editNeighbourhoodId = $id;
         $data = Neighbourhood::findOrfail($id);
       
@@ -88,14 +107,27 @@ class NeighbourhoodResource extends Component
     public function update()
     {
 
-        $this->validate(neighbourhoodRequest::rules($this->city_id));
+        if(Gate::denies('neighbourhood.update')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+          }
+
+          $this->validate([
+            'editNeighbourhoodName' => [
+                'required',
+                Rule::unique('neighbourhoods','neighbourhood_name')->where(function ($query)  {
+                    return $query->where('city_id', $this->cityIdUpdate);
+                }),
+            ],
+            'cityIdUpdate' => ['required'],
+          
+        ]);
 
         $data = Neighbourhood::findOrfail($this->editNeighbourhoodId);
 
         $data->update([
             'neighbourhood_name'=>$this->editNeighbourhoodName,
             'city_id' => $this->cityIdUpdate,
-            'region_id' => $this->regionIdUpdate,
+         
         ]);
 
         $this->cancelEdit();
@@ -103,6 +135,11 @@ class NeighbourhoodResource extends Component
 
     public function destroy($id)
     {
+        if(Gate::denies('neighbourhood.delete')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+          }
+
+
         DB::beginTransaction();
 
         try {

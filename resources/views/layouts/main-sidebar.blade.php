@@ -17,6 +17,7 @@
         <div class="app-sidebar__user clearfix">
             <div class="dropdown user-pro-body">
                 <div class="">
+                    
                     <img alt="user-img" class="avatar avatar-xl brround"
                         src="{{ asset('assets/img/faces/001-boy.svg') }}"><span
                         class="avatar-status profile-status bg-green"></span>
@@ -138,12 +139,12 @@
                 <ul class="slide-menu p-0">
                     <li class="sub-slide">
                         <a class="sub-side-menu__item" data-toggle="sub-slide"
-                            href="{{ url('/' . ($page = '#')) }}"><span
-                                class="sub-side-menu__label"> المعالم والعناوين</span><i
-                                class="sub-angle fe fe-chevron-down"></i></a>
+                            href="{{ url('/' . ($page = '#')) }}"><span class="sub-side-menu__label"> المعالم
+                                والعناوين</span><i class="sub-angle fe fe-chevron-down"></i></a>
                         <ul class="sub-slide-menu">
-                            <li><a class="sub-slide-item" href="{{ route('addresses.index') }}">انشاء المعالم </a></li>
-                          
+                            <li><a class="sub-slide-item" href="{{ route('addresses.index') }}">انشاء المعالم </a>
+                            </li>
+
                         </ul>
                     </li>
                 </ul>

@@ -4,7 +4,7 @@
     <x-slot:crumb>
         <x-breadcrumb></x-breadcrumb>
     </x-slot:crumb>
-    @include('layouts._error-form')
+
 
  
 

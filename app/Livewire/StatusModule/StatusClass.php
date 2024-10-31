@@ -121,11 +121,11 @@ class  StatusClass extends Component
             ->select('status_name', 'id', 'p_id', 'p_id_sub', 'used_in_system_id')
             ->SearchName($this->search)
             ->SearchpId($this->PidSearch)
-            ->SearchSystemName($this->SystemName)
-            ->orderBy($this->sortBy, $this->sortdir)
-            ->paginate($this->perPage);
+            ->SearchSystemName($this->SystemName) 
+            ->orderBy($this->sortBy, $this->sortdir) 
+             ->paginate($this->perPage);
 
-
+        // dd($statuses);
 
         $systems_data = SettingSystem::orderBy('created_at','desc')->get();
 

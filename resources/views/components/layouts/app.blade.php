@@ -33,7 +33,7 @@
 
             <div class="card">
                 <div
-                    class=" py-2 card-header d-flex justify-content-between align-items-center   tx-medium bd-0 tx-white bg-gray-800 ">
+                    class="mb-2 py-2 card-header d-flex justify-content-between align-items-center   tx-medium bd-0 tx-white bg-gray-800 ">
 
                     <div class=" w-50"> {{ $pageTitle ?? '' }}</div>
 

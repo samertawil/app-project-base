@@ -12,17 +12,25 @@
         <div class="col-lg-12">
 
             <div class="d-flex align-items-center justify-content-end">
+                
+                @can('region.index')
                 <x-button class="btn-light-info"  data-target="#regionModal" data-toggle="modal"   name="ادارة المحافظات"></x-button>
-               
-
+                @endcan
+                @can('city.index')
                 <x-button class="btn-light-info" data-target="#cityModal" data-toggle="modal"  name="ادارة المدن"></x-button>
-
+                @endcan
+                @can('neighbourhood.index')
                 <x-button class="btn-light-info" data-target="#neighbourhoodModal" data-toggle="modal" name="ادارة الاحياء"></x-button>
-
+                @endcan
+                @can('location.index')
                 <x-button class="btn-light-info" data-target="#locationModal" data-toggle="modal" name="ادارة المعالم"></x-button>
-
+                @endcan
             </div>
  
+
+          
+                
+         
  
     <x-modal idName="regionModal" width="xl" title='ادارة المحافظات'>
 

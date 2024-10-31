@@ -8,24 +8,31 @@ use Livewire\Component;
 use App\Traits\SortTrait;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Gate;
 
-class RoleIndex extends Component
+class RoleResource extends Component
 {
+    public $sortBy='created_at';
     use SortTrait;
 
     use WithPagination;
 
     protected $paginationTheme ='bootstrap';
 
-    #[Url('history:true')]
+
     public $search='';
 
-    #[Url('history:true')]
-    public $perPage=10;
+
+    public $perPage=5;
 
 
     public function destroy($id) 
     {
+        if(Gate::denies('role.delete')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+         }
+
+
         Role::destroy($id);
     
     }
@@ -45,13 +52,16 @@ class RoleIndex extends Component
     public function render()
     {
   
- 
+        
 
         $title='عرض مجموعات الصلاحيات';
 
-        $roles= Role::SearchName($this->search)->orderBy($this->sortBy,$this->sortdir)->paginate($this->perPage);
-
-        return view('role.role-index',compact('roles')) 
+        $roles= Role::
+        SearchName($this->search)
+        ->orderBy($this->sortBy,$this->sortdir)
+        ->paginate($this->perPage);
+ 
+        return view('livewire.role.role-resource',compact('roles')) 
         ->layoutData(['title' => $title, 'pageTitle'=>$title]);
     }
 }

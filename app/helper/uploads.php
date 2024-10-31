@@ -1,5 +1,7 @@
 <?php
 
+
+
 function uploadsFile($request,$dbColumName,$disk)
 {
     if(! $request->hasfile($dbColumName)) {
@@ -21,3 +23,7 @@ function uploadsFile($request,$dbColumName,$disk)
 
    
 }
+
+
+
+// $attchments_file = uploadsFile($request, 'attachments', 'transports');  // in controller file

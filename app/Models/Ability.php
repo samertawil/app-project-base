@@ -30,7 +30,7 @@ class Ability extends Model
 
        public function scopeSearchName($query,$value) {
         if($value) {
-            $query->where('ability_name','like',"%{$value}%");
+            $query->where('ability_name','like',"%{$value}%")->orWhere('ability_description','like',"%{$value}%");
         }
        
        }

@@ -12,14 +12,13 @@ use Livewire\Attributes\Rule;
 use App\Traits\FlashMsgTraits;
 use Illuminate\Support\Facades\DB;
 use App\Services\CacheModelServices;
+use Illuminate\Support\Facades\Gate;
 
 
 class RegionResource extends Component
 {
 
-   
 
-    #[Rule(['required', 'unique:regions,region_name'])]
     public $region_name;
 
     public $regionId;
@@ -29,7 +28,16 @@ class RegionResource extends Component
     public function store()
     {
 
-        $this->validate();
+        
+        if( Gate::denies('region.create')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+        }
+
+
+        $this->validate([
+            'region_name' => ['required', 'unique:regions,region_name'],
+        ]);
+
 
         Region::create($this->all());
 
@@ -41,6 +49,10 @@ class RegionResource extends Component
 
     public function edit($id)
     {
+        if( Gate::denies('region.update')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+        }
+
 
         $this->regionId = $id;
 
@@ -52,6 +64,9 @@ class RegionResource extends Component
     public function update()
     {
 
+        if( Gate::denies('region.update')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+        }
 
         $data = Region::findOrfail($this->regionId);
 
@@ -76,6 +91,12 @@ class RegionResource extends Component
 
     public function destroy($id)
     {
+
+        if( Gate::denies('region.delete')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+        }
+
+
         DB::beginTransaction();
         try {
 
@@ -101,6 +122,7 @@ class RegionResource extends Component
 
     public function render()
     {
+
 
         $regions =  CacheModelServices::getRegionVwData();
 

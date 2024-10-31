@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Ability;
 
-use App\Models\Status;
+
 use App\Models\Ability;
 use Livewire\Component;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\AbilityRequest;
 use App\Services\CacheStatusModelServices;
 
@@ -20,6 +21,10 @@ class AbilityCreate extends Component
 
 
     public function storeAbility() {
+
+        if(Gate::denies('ability.create')) {
+            abort(403,'ليس لديك الصلاحية اللازمة');
+         }
 
      $this->validate(AbilityRequest::rules());
 
@@ -51,7 +56,7 @@ class AbilityCreate extends Component
         
         $pageTitle='انشاء صلاحية';
         
-        return view('ability.ability-create',compact('moduleNames'))->title( $pageTitle);
+        return view('livewire.ability.ability-create',compact('moduleNames'))->title( $pageTitle);
     }
 
 

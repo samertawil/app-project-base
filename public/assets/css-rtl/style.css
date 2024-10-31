@@ -9929,7 +9929,7 @@ a.tag-addon {
 #global-loader {
   position: fixed;
   z-index: 50000;
-  background: #fff;
+  background: #fff;  
   left: 0;
   top: 0;
   right: 0;
@@ -9938,6 +9938,19 @@ a.tag-addon {
   width: 100%;
   margin: 0 auto;
   text-align: center; }
+
+  #global-loader_custome {  
+    position: fixed;
+    z-index: 50000;
+    /* background: #fff; */
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center; }
 
 .loader-img {
   position: absolute;

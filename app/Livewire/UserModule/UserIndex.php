@@ -49,6 +49,7 @@ class UserIndex extends Component
 
     public function edit($id)
     {
+       
         $this->editUserId = $id;
         $data = User::find($id);
 
