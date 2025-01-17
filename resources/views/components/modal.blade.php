@@ -19,9 +19,17 @@
 
                     {{ $slot }}
                 </div>
-                <div class="modal-footer">
-                    <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">اغلاق</button>
+
+
+                <div class="modal-footer" >
+
+                    <x-button type="button" name="اغلاق" class="bg-secondary" data-dismiss="modal"
+                        wire:loading.attr='disabled'></x-button>
+
                 </div>
+
+
+
             </div>
         </div>
     </div>
@@ -38,3 +46,15 @@
     @endpush
 
 </div>
+
+
+{{-- <x-button class="btn-light-info"  data-target="#regionModal" data-toggle="modal"   name="ادارة المحافظات"></x-button> --}}
+
+
+
+
+{{-- <x-modal idName="regionModal" width="xl" title='ادارة المحافظات'>
+
+    <livewire:AddressesModule.RegionResource></livewire:AddressesModule.RegionResource> 
+
+</x-modal> --}}

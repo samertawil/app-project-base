@@ -17,7 +17,7 @@
         <div class="app-sidebar__user clearfix">
             <div class="dropdown user-pro-body">
                 <div class="">
-                    
+
                     <img alt="user-img" class="avatar avatar-xl brround"
                         src="{{ asset('assets/img/faces/001-boy.svg') }}"><span
                         class="avatar-status profile-status bg-green"></span>
@@ -149,7 +149,18 @@
                     </li>
                 </ul>
 
+
             </li>
+
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24" ><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15 11V4H4v8.17l.59-.58.58-.59H6z" opacity=".3"/><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-5 7c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10zM4.59 11.59l-.59.58V4h11v7H5.17l-.58.59z"/></svg><span class="side-menu__label">جهات الاتصال</span><i class="angle fe fe-chevron-down"></i></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item" href="{{route('contact.list')}}">عرض القائمة</a></li>
+                    <li><a class="slide-item" href="{{ route('contact.create') }}"> اضافة جهة اتصال</a></li>
+                     
+                </ul>
+            </li>
+
         </ul>
     </div>
 </aside>

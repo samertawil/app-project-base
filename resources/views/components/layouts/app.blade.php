@@ -39,6 +39,7 @@
 
                     <div class="w-50" style="text-align: left">
                         <button class="btn reload"><i class="ti-reload text-warning"></i></button>
+                      
                     </div>
                   
                 </div>

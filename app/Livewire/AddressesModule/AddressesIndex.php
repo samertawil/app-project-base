@@ -21,26 +21,26 @@ class AddressesIndex extends Component
 
     use SortTrait ;
 
-    #[Url(history:true)]
+    #[Url()]
     public $sortBy='location_id';
 
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
 
-    #[Url(history:true)]
+    #[Url()]
     public $search;
 
-    #[Url(history: true)]
+    #[Url()]
     public $perPage = 5;
 
-    #[Url(history: true)]
+    #[Url()]
     public $regionIdSearch;
     
-    #[Url(history: true)]
+    #[Url()]
     public $cityIdSearch;
 
-    #[Url(history: true)]
+    #[Url()]
     public $neighbourhoodIdSearch;
     
     public function  api_create_short_address($value = '', $model = '')

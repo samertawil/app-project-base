@@ -34,10 +34,10 @@ class CityClass extends Component
     #[Url(history: true)]
     public $perPage = 5;
 
-    #[Url(history:true)]
+    #[Url()]
     public $regionIdSearch;
 
-    #[Url(history:true)]
+    #[Url()]
     public $search;
 
     public $regionIdUpdate;

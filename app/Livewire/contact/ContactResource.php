@@ -4,46 +4,68 @@ namespace App\Livewire\contact;
 
 use App\Models\Contact;
 use Livewire\Component;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Computed;
 use App\Services\CacheStatusModelServices;
+use Livewire\Attributes\Lazy;
 
 class ContactResource extends Component
 {
 
     public $ContactTypeToshow = 1236;
     public $contact_type;
+    public $contactObject;
+    public $address_specific;
+    public $notes;
+    public $description;
+    public $note;
 
-     public $contactObject;
 
 
+    public $editContact;
 
-    public $editContact=1;
 
-    public function mount($id=1) {
-
-        $contact= Contact::with(['contactTypeName'])->findOrfail($id);
-       
-        $this->contactObject=$contact;
-
-        
-    }
 
     public function contactType()
     {
         $this->ContactTypeToshow = $this->contact_type;
     }
 
-    public function render()
+
+
+     #[On('list-contact-id')]
+    public function mount($id=null)
     {
-        $contacts= Contact::get();
-        $statuses = CacheStatusModelServices::getData();
+       
+        if(is_null($id)) {
+            $id=$this->Contacts->first()->id ;
+            
+         }
+        $contact = Contact::with(['contactTypeName'])->findOrfail($id);
+
+        $this->contactObject = $contact;
+
+        
+    }
 
     
-        // dd($contacts[0]['attchments']['contactImage1']);
-        //  foreach ($contacts[0]['attchments'] as $key => $value) {
-        //     // dd($contacts[0]['attchments']);
-        
-        // }
-       
-        return view('livewire.contact.contact-resource',compact('contacts','statuses'));
+    #[Computed()]
+    public function Contacts() {
+       return Contact::get();
+    }
+
+
+    #[Computed()]
+    public function Statuses() {
+       return CacheStatusModelServices::getData();
+    }
+
+
+
+    public function render()
+    {
+
+
+        return view('livewire.contact.contact-resource');
     }
 }

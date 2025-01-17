@@ -64,7 +64,14 @@ Route::get('/profile', function() {
 });
  
 
-Route::view('/test','test');
+Route::get('/sidebar', function() {
+    return view('main-sidebar');
+});
+ 
+
+Route::get('test',Test::class);
+ 
+
 
 include __DIR__ .'/auth.php';
 
@@ -79,7 +86,5 @@ include __DIR__ .'/setting.php';
 include __DIR__ .'/address.php';
 
 include __DIR__ .'/contact.php';
-
- 
 
  

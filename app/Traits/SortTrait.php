@@ -9,10 +9,10 @@ use Livewire\Attributes\Url;
 trait SortTrait  {
 
        
-    // #[Url(history:true)]
+    // #[Url()]
     // public $sortBy='created_at';
  
-    #[Url(history:true)]
+    #[Url()]
     public $sortdir='DESC';
 
  

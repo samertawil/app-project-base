@@ -19,7 +19,7 @@ class NeighbourhoodClass extends Component
 {
     use SortTrait ;
 
-    #[Url(history:true)]
+    #[Url()]
     public $sortBy='neighbourhood_id';
 
     use WithPagination;

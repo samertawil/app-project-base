@@ -13,7 +13,7 @@
 
                              <form wire:submit='register'>
 
-                                 <x-input wire:model='user_name' name="user_name" label="yes" dir="ltr"
+                                 <x-input wire:model.live='user_name' name="user_name" label="yes" dir="ltr"
                                      divlclass='col-lg-12'></x-input>
 
                                  <x-input wire:model='name' name="name" label="yes"

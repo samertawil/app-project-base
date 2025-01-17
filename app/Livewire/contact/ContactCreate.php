@@ -2,29 +2,35 @@
 
 namespace App\Livewire\contact;
 
+
 use App\Models\Status;
 use App\Models\Address;
 use App\Models\Contact;
 use Livewire\Component;
-use App\Traits\testTrait;
 use Livewire\Attributes\Rule;
 use Livewire\WithFileUploads;
 use App\Traits\FlashMsgTraits;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Modelable;
 use App\Traits\UploadingFilesTrait;
 use App\Services\CacheModelServices;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CacheStatusModelServices;
 
+
 class ContactCreate extends Component
 {
+
+    protected  $listeners = ['address-property' => 'getAddressProp'];
     use UploadingFilesTrait;
     use WithFileUploads;
 
     public $full_name;
     public $short_description;
-    public $personal_phone_primary;
+    public $personal_phone_primary = '';
     public $personal_phone_secondary;
     public $work_phone_primary;
     public $work_phone_secondary;
@@ -35,19 +41,18 @@ class ContactCreate extends Component
     public $tname;
     public $lname;
     public $responsible;
-    public $region_id;
-    public $city_id;
-    public $neighbourhood_id;
-    public $location_id;
     public $address_name;
-    public $address_specific;
-    public $address_type;
-    public $notes;
-    public $description;
     public $note;
-
     public $image1 = 'http://127.0.0.1:8000/assets/img/faces/5.jpg';
 
+    public  $region_id = [];
+    public  $city_id;
+    public  $neighbourhood_id;
+    public  $location_id;
+    public $address_type;
+    public $address_specific;
+    public $notes;
+    public $description;
     public $ContactTypeToshow = 1236;
     public $contact_type;
     public $contactImage;
@@ -58,29 +63,30 @@ class ContactCreate extends Component
     public $saved = FALSE;
     public $properties;
 
-    #[Rule(['email', 'required'])]
     public $attributeValue0;
-    // public $attributeValue1;
-    // public $attributeValue2;
-    // public $attributeValue3;
-    // public $attributeValue4;
+    public $attributeValue1;
+    public $attributeValue2;
+    public $attributeValue3;
+    public $attributeValue4;
 
+
+    public function getAddressProp($value)
+    {
+
+
+        $this->region_id = ($value['region_id']);
+        $this->city_id = ($value['city_id']);
+        $this->neighbourhood_id = ($value['neighbourhood_id']);
+        $this->location_id = ($value['location_id']);
+        $this->address_specific = ($value['address_specific']);
+        $this->notes = ($value['notes']);
+        $this->address_type = ($value['address_type']);
+    }
 
     public function mount()
     {
 
         $this->all_templates = Status::where('p_id_sub', 1246)->get();
-    }
-
-    public function addQuestion()
-    {
-        $this->attributeValue[] = '';
-    }
-
-    public function removeQuestion($index)
-    {
-        unset($this->attributeValue[$index]);
-        $this->attributeValue = array_values($this->attributeValue);
     }
 
 
@@ -92,17 +98,19 @@ class ContactCreate extends Component
 
 
             if ($value == 'Email') {
-              
-               
-                // 'attributeValue'.$key =$this->attributeValue[$key];
 
-                //  $this->attributeValue1 =$this->attributeValue[$key];
 
-                // $this->validate(["attributeValue".$key => ['required','email'], ]);  //ok
-                $this->validate();
+                $this->attributeValue0 = $this->attributeValue[$key];
+                $this->attributeValue1 = $this->attributeValue[$key];
+                $this->attributeValue2 = $this->attributeValue[$key];
+                $this->attributeValue3 = $this->attributeValue[$key];
+                $this->attributeValue4 = $this->attributeValue[$key];
+
+                $this->validate(["attributeValue" . $key => ['required', 'email'],]);  //ok
+
             }
         }
-        dd(1);
+
 
         foreach ($this->attributeColumn as $key => $value) {
             $x1[$value] =  $this->attributeValue[$key];
@@ -110,15 +118,11 @@ class ContactCreate extends Component
 
 
         $this->validate([
-            // 'region_id' => ['required',],
-            // 'city_id' => ['required',],
-            // 'address_type' => ['required', 'exists:statuses,id'],
+
             'contact_type' => ['required', 'exists:statuses,id'],
             'full_name' => ['required'],
             'contactImage.*' => ['nullable', 'image', 'max:1024'],
         ]);
-
-
 
 
         $attchments =  UploadingFilesTrait::uploadSingleFile($this->contactImage, 'contactProfile', 'public');
@@ -126,19 +130,7 @@ class ContactCreate extends Component
         DB::beginTransaction();
         try {
 
-            // $addessId =  Address::create([
-            //     'region_id' => $this->region_id,
-            //     'city_id' => $this->city_id,
-            //     'neighbourhood_id' => $this->neighbourhood_id,
-            //     'location_id' => $this->location_id,
-            //     'address_specific' => $this->address_specific,
-            //     'address_name' => 'عنوان',
-            //     'address_type' => $this->address_type,
-            //     'user_id' => Auth::id(),
-            //     'notes' => $this->notes,
-            // ]);
-
-            Contact::create([
+            $contactId =  Contact::create([
                 'contact_type' => $this->contact_type,
                 'identity_number' => $this->identity_number,
                 'full_name' => $this->full_name,
@@ -148,7 +140,6 @@ class ContactCreate extends Component
                 'tname' => $this->tname,
                 'lname' => $this->lname,
                 'responsible' => $this->responsible,
-                // 'address_id' => $addessId->id,
                 'short_description' => $this->short_description,
                 'description' => $this->description,
                 'personal_phone_primary' => $this->personal_phone_primary,
@@ -161,6 +152,22 @@ class ContactCreate extends Component
 
 
             ]);
+
+            foreach ($this->region_id as $key => $value) {
+                Address::create([
+                    'region_id' => $this->region_id[$key],
+                    'city_id' => $this->city_id[$key],
+                    'neighbourhood_id' => $this->neighbourhood_id[$key] ?? null,
+                    'location_id' => $this->location_id[$key] ?? null,
+                    'address_specific' => $this->address_specific[$key] ?? null,
+                    'address_name' => 'عنوان',
+                    'address_type' => $this->address_type[$key],
+                    'user_id' => Auth::id(),
+                    'notes' => $this->notes[$key] ?? null,
+                    'contact_id' => $contactId->id,
+
+                ]);
+            }
 
             DB::commit();
 
@@ -183,27 +190,64 @@ class ContactCreate extends Component
 
 
 
-    public function updated($key, $value)
+    public function addQuestion()
     {
-        $this->saved = FALSE;
-        // $parts = explode(".", $key);
-        // if (count($parts) == 2 && $parts[0] == "templates") {
-        //     $question = $this->all_templates->where('status_name', $value)->first()->text;
-        //     if ($question) {
-        //         $this->attributeValue[$parts[1]] = $question;
-        //     }
-        // }
+        $this->attributeValue[] = '';
     }
 
+
+
+    public function removeQuestion($index)
+    {
+        unset($this->attributeValue[$index]);
+        $this->attributeValue = array_values($this->attributeValue);
+    }
+
+    public function chkExists($value, $property)
+    {
+
+        $existedData = $this->Contacts->where($property, $value)->first();
+
+        if ($property === 'personal_phone_primary' && $existedData) {
+
+
+            $this->dispatch(
+                'alert',
+                type: 'question',
+                title: 'هاتف مكرر',
+                text: ' الرقم ' . $this->personal_phone_primary . ' موجود مسبقا ومسجل باسم '  .  $existedData->full_name,
+                confirmButtonText: 'اغلاق'
+            );
+        } elseif ($property === 'full_name' && $existedData) {
+
+
+            $this->dispatch(
+                'alert',
+                type: 'question',
+                title: ' الاسم مكرر ',
+                text: ' الاسم موجود مسبقا  '  .  $existedData->full_name,
+                confirmButtonText: 'اغلاق'
+            );
+        }
+    }
+
+
+
+    #[Computed]
+    public  function Contacts()
+    {
+
+        return Contact::get();
+    }
 
     public function render()
     {
 
-        $contacts = Contact::get();
         $pageTitle = 'جهات الاتصال';
         $statuses = CacheStatusModelServices::getData();
         $regions =  CacheModelServices::getRegionVwData();
 
-        return view('livewire.contact.contact-create', compact('statuses', 'regions', 'contacts'))->layoutData(['pageTitle' => $pageTitle, 'title' => $pageTitle]);
+
+        return view('livewire.contact.contact-create', compact('statuses', 'regions',))->layoutData(['pageTitle' => $pageTitle, 'title' => $pageTitle]);
     }
 }

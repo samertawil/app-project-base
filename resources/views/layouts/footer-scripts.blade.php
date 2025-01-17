@@ -6,6 +6,7 @@
 <script src="{{URL::asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- Ionicons js -->
 <script src="{{URL::asset('assets/plugins/ionicons/ionicons.js')}}"></script>
+<script src="{{URL::asset('assets/js/all.min.js')}}"></script>
 <!-- Moment js -->
 <script src="{{URL::asset('assets/plugins/moment/moment.js')}}"></script>
 
@@ -36,9 +37,9 @@
 
 
    <script src="{{ asset('assets/my-js/select2.min.js') }}"></script>
-   <script src="{{asset('assets/my-js/general.js')}}"></script>
-   <script>  reloadPage();  </script>
-    
-    
-
+    <script src="{{asset('assets/my-js/general.js')}}"></script>
+   <script>  reloadPage();  </script> 
+  {{-- <script>  scrollToErrorField();  </script>  --}}
+    <script src="{{asset('assets/js/sweetalert2@11.js')}}"></script>
+ 
 {{-- <script src="{{asset('assets/my-js/bootstrap.js')}}"></script> --}}

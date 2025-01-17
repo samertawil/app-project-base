@@ -20,7 +20,7 @@ class LocationClass extends Component
 
     use SortTrait ;
 
-    #[Url(history:true)]
+    #[Url()]
     public $sortBy='location_id';
 
     use WithPagination;

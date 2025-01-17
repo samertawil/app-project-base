@@ -23,7 +23,9 @@
 
     {{--   
                 <div> <label for="hs-search-box-with-loading-1" class="ti-form-label">Search</label> <div class="relative"> <input type="text" id="hs-search-box-with-loading-1" name="hs-search-box-with-loading-1" class="ti-form-input rounded-sm ltr:pl-11 rtl:pr-11 focus:z-10" placeholder="Input search"> <div class="absolute inset-y-0 ltr:left-0 rtl:right-0 flex items-center pointer-events-none ltr:pl-4 rtl:pr-4"> <div class="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-primary rounded-full" role="status" aria-label="loading"> <span class="sr-only">Loading...</span> </div> </div> </div> </div> --}}
- 
+
+
+
     <div class="row justify-content-between align-items-center">
         <div class="col-sm-12 col-md-2">
             <div> <span class="ml-1">السطور</span> <label><select wire:model.live='perPage'
@@ -86,11 +88,10 @@
                 </thead>
                 <tbody>
 
-                    {{-- class="wd-lg-10p" --}}
-
+         
                     @foreach ($users as $key => $user)
                         <td>{{ $key + 1 }}
-                            {{-- <a aria-controls="collapseExample1" aria-expanded="false" class="btn ripple btn-primary" data-toggle="collapse" href="#a{{$user->id}}" role="button">+</a> --}}
+   
                         </td>
                         <td>{{ $user->user_name }}</td>
                         @if ($editUserId === $user->id)
@@ -169,9 +170,10 @@
                                 <x-actions edit wire:loading.attr='disabled'
                                     wire:click.prevent='edit({{ $user->id }})'></x-actions>
 
-                                <x-actions del wire:loading.attr='disabled'
-                                    onclick="confirm('هل انت متأكد من عملية المسح؟') ?  '' : event.stopImmediatePropagation() "
-                                    wire:click.prevent='destroy({{ $user->id }})'></x-actions>
+                                    <a wire:loading.attr='disabled' class="btn btn-lg text-danger "
+                                    wire:confirm.prompt='هل انت متأكد؟  \n للتاكيد الرجاء كتابة اسم المستخدم|{{ $user->user_name }}'
+                                    wire:click.prevent='destroy({{ $user->id }})'> <i class="ti-trash"></i> </a>
+
                             @else
                                 <x-actions make wire:loading.attr='disabled' wire:click='update'></x-actions>
                                 <x-actions cancel wire:click='cancelEdit'></x-actions>

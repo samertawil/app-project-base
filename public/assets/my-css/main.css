@@ -58,11 +58,14 @@ th {
     text-decoration: none;
     color: black;
 }
-/*
-label {
-    font-weight: 500 !important;
-} */
 
+.custom-border-bottom-dotted {
+    border-bottom: 1px dashed #cccccc !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-left: none !important;
+
+}
 
 .smallTd {
     padding: 0px 15px !important;

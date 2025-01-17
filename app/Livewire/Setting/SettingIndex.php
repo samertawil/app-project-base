@@ -16,7 +16,7 @@ class SettingIndex extends Component
 {
     use SortTrait;
 
-    #[Url(history:true)]
+    #[Url()]
     public $sortBy='created_at';
     
     use WithPagination;

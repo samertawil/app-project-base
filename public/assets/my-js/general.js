@@ -52,6 +52,24 @@ function reloadPage() {
         location.reload();
     }) 
 }
+//end of re load page 
 
-
- 
+//begin of scrollToErrorField   
+function scrollToErrorField() {
+    
+    Livewire.hook('commit', ({ succeed }) => {
+       
+        succeed(() => {
+            setTimeout(() => {
+              
+                const firstErrorMessage = document.querySelector('.error-message')
+    
+                if (firstErrorMessage !== null) {
+                    firstErrorMessage.scrollIntoView({ block: 'center', inline: 'center' })
+                }
+            }, 0)
+        })
+    }) 
+   
+}
+//end of scrollToErrorField   

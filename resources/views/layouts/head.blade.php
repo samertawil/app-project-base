@@ -9,6 +9,7 @@
 <!-- Icons css -->
 
 <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet">
+<link href="{{asset('assets/css/all.min.css')}}" rel="stylesheet">
 
 <!--  Custom Scroll bar-->
 

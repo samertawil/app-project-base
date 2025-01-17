@@ -32,7 +32,7 @@
 
     @if ($del)
         <a href={{ $route }} class="btn btn-lg text-danger "
-            onclick="confirm('هل انت متأكد من عملية المسح؟') ? '' : event.stopImmediatePropagation()"
+                wire:confirm='هل انت متأكد؟'
             {{ $attributes }}>
 
             <i class="ti-trash"></i>
@@ -78,7 +78,7 @@
 
 
     @if ($mins)
-        <a href="#" class="btn btn-lg text-danger " {{ $attributes }}>
+        <a href="#" class="btn btn-lg  text-danger  " {{ $attributes }}>
 
             <i class="ti-minus"></i>
 

@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('personal_phone_secondary')->nullable();// done
             $table->string('work_phone_primary')->nullable();
             $table->string('work_phone_secondary')->nullable();
+            $table->boolean('isFavorite')->default(0);
             $table->json('properties')->nullable();
             $table->json('attchments')->nullable(); // done
             $table->text('note')->nullable(); //done

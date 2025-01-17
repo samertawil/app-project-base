@@ -21,7 +21,7 @@ class  StatusClass extends Component
 {
     use SortTrait;
 
-      #[Url(history:true)]
+      #[Url()]
       public $sortBy='created_at';
 
     use WithPagination;
@@ -37,16 +37,16 @@ class  StatusClass extends Component
     public $route_system_name;
     public $route_name;
 
-    #[Url(history:true)]
+    #[Url()]
     public $search = null;
 
-    #[Url(history:true)]
+    #[Url()]
     public $perPage = 10;
 
-    #[Url(history:true)]
+    #[Url()]
     public $PidSearch;
 
-    #[Url(history:true)]
+    #[Url()]
     public $SystemName;
     
     public $editStatusId;
